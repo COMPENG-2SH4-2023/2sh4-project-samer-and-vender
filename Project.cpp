@@ -52,8 +52,9 @@ void Initialize(void)
 
 void GetInput(void)
 {
-    
-   
+    if (MacUILib_hasChar())
+        game->setInput(MacUILib_getChar());
+
 }
 
 void RunLogic(void)
