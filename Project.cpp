@@ -9,7 +9,6 @@ using namespace std;
 
 #define DELAY_CONST 100000
 
-bool exitFlag;
 
 
 void Initialize(void);
@@ -48,6 +47,7 @@ void Initialize(void)
     
     myGm = new GameMechs();
     myPlayer = new(Player(myGM))
+
 }
 
 void GetInput(void)
