@@ -19,14 +19,14 @@ void LoopDelay(void);
 void CleanUp(void);
 
 GameMechs* game;
-Player myPlayer;
+Player* myPlayer;
 
 int main(void)
 {
 
     Initialize();
 
-    while(game->getExitFlagStatus())  
+    while(!(game->getExitFlagStatus()))  
     {
         GetInput();
         RunLogic();
@@ -46,7 +46,7 @@ void Initialize(void)
 
     
     game = new GameMechs();
-    myPlayer = new(Player(game))
+    myPlayer = new Player(game);
 
 }
 
@@ -59,18 +59,35 @@ void GetInput(void)
 void RunLogic(void)
 {
     myPlayer->updatePlayerDir();
+    myPlayer->movePlayer();
 }
 
 void DrawScreen(void)
 {
     MacUILib_clearScreen();    
     objPos tempPos;
-    myPlayer.getPlayerPos(temPos);
-    MacUILib_printf("BoardSize: %d%d, Player Pos: <%d, %d> + %c\n", 
-    game->getBoardSizeX(), game->getBoardSizeY(), 
-    tempPos.x, tempPos.y, tempPos.symbol){
 
+    myPlayer->getPlayerPos(tempPos);
+
+    MacUILib_printf("BoardSize: %d, %d,\nPlayer Pos: <%d, %d> + %c\n", 
+    game->getBoardSizeX(), game->getBoardSizeY(), 
+    tempPos.x, tempPos.y, tempPos.symbol);
+    
+    for(int j = 0; j < game->getBoardSizeY(); j++){
+        for(int i = 0; i < game->getBoardSizeX(); i++){
+            if(j == 0 || j == game->getBoardSizeY()-1 || i == 0 || i == game->getBoardSizeX()-1){
+                MacUILib_printf("#");
+            }
+            else if(i == tempPos.x && j == tempPos.y){
+                MacUILib_printf("%c", tempPos.symbol);
+            } 
+            else{
+                MacUILib_printf(" ");
+            }
+        }
+        MacUILib_printf("\n");
     }
+
 
 }
 
