@@ -32,7 +32,9 @@ void Player::updatePlayerDir()
     if(input != 0)  // if not null character
     {
         switch(input)
-        {                      
+        {        
+            case 27:
+                mainGameMechsRef->setExitTrue();    
             case 'w':
             case 'W':
                 if(myDir != DOWN){

@@ -18,7 +18,7 @@ void DrawScreen(void);
 void LoopDelay(void);
 void CleanUp(void);
 
-GameMechs* myGM;
+GameMechs* game;
 Player myPlayer;
 
 int main(void)
@@ -26,7 +26,7 @@ int main(void)
 
     Initialize();
 
-    while(myGM->getExitFlagStatus())  
+    while(game->getExitFlagStatus())  
     {
         GetInput();
         RunLogic();
@@ -45,8 +45,8 @@ void Initialize(void)
     MacUILib_clearScreen();
 
     
-    myGm = new GameMechs();
-    myPlayer = new(Player(myGM))
+    game = new GameMechs();
+    myPlayer = new(Player(game))
 
 }
 
@@ -67,7 +67,7 @@ void DrawScreen(void)
     objPos tempPos;
     myPlayer.getPlayerPos(temPos);
     MacUILib_printf("BoardSize: %d%d, Player Pos: <%d, %d> + %c\n", 
-    myGM->getBoardSizeX(), myGM->getBoardSizeY(), 
+    game->getBoardSizeX(), game->getBoardSizeY(), 
     tempPos.x, tempPos.y, tempPos.symbol){
 
     }
@@ -83,6 +83,7 @@ void LoopDelay(void)
 void CleanUp(void)
 {
     MacUILib_clearScreen();    
-  
+    delete game;
+    delete myPlayer;
     MacUILib_uninit();
 }
