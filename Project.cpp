@@ -12,8 +12,6 @@ using namespace std;
 bool exitFlag;
 
 
-Player myPlayer;
-
 void Initialize(void);
 void GetInput(void);
 void RunLogic(void);
@@ -21,14 +19,15 @@ void DrawScreen(void);
 void LoopDelay(void);
 void CleanUp(void);
 
-
+GameMechs* myGM;
+Player myPlayer;
 
 int main(void)
 {
 
     Initialize();
 
-    while(exitFlag == false)  
+    while(myGM->getExitFlagStatus())  
     {
         GetInput();
         RunLogic();
@@ -47,8 +46,7 @@ void Initialize(void)
     MacUILib_clearScreen();
 
     
-
-    myGm = new GameMechs(30, 15);
+    myGm = new GameMechs();
     myPlayer = new(Player(myGM))
 }
 
