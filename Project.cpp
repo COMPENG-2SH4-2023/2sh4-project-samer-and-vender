@@ -64,6 +64,7 @@ void RunLogic(void)
 {
     myPlayer->updatePlayerDir();
     myPlayer->movePlayer();
+    game->clearInput();
 }
 
 void DrawScreen(void)

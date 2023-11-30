@@ -5,8 +5,8 @@ Player::Player(GameMechs* thisGMRef)
 {
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
-
-    playerPos.setObjPos(mainGameMechsRef->getBoardSizeX() / 2, mainGameMechsRef->getBoardSizeY() / 2, '*');
+    playerPosList->objPosArrayList();
+    //playerPosList.setObjPos(mainGameMechsRef->getBoardSizeX() / 2, mainGameMechsRef->getBoardSizeY() / 2, '*');
 
 }
 
@@ -18,8 +18,8 @@ Player::~Player()
 
 void Player::getPlayerPos(objPos &returnPos)
 {
-    returnPos.setObjPos(playerPos.x, playerPos.y, playerPos.symbol);
-    // return the reference to the playerPos arrray list
+    returnPos.setObjPos(playerPosList->insertHead(aList));
+    // return the reference to the playerPosList arrray list
 }
 
 void Player::updatePlayerDir()
@@ -68,39 +68,39 @@ void Player::movePlayer()
 {
     switch(myDir){
         case(LEFT):
-            playerPos.x--;
+            playerPosList[0].x--;
             break;
         
         case(RIGHT):
-            playerPos.x++;
+            playerPosList[0].x++;
             break;
 
         case(UP):
-            playerPos.y--;
+            playerPosList[0].y--;
             break;
 
         case(DOWN):
-            playerPos.y++;
+            playerPosList[0].y++;
             break;
 
         default:
             break;
     }
 
-    if(playerPos.y >= mainGameMechsRef->getBoardSizeY()){
-        playerPos.y = 1;
+    if(playerPosList[0].y >= mainGameMechsRef->getBoardSizeY()){
+        playerPosList[0].y = 1;
     }
 
-    if(playerPos.y < 1){
-        playerPos.y = mainGameMechsRef->getBoardSizeY() - 2;
+    if(playerPosList[0].y < 1){
+        playerPosList[0].y = mainGameMechsRef->getBoardSizeY() - 2;
     }
 
-    if (playerPos.x >= mainGameMechsRef->getBoardSizeX()-1){
-        playerPos.x = 1;
+    if (playerPosList[0].x >= mainGameMechsRef->getBoardSizeX()-1){
+        playerPosList[0].x = 1;
     }
 
-    if(playerPos.x < 1){
-        playerPos.x = mainGameMechsRef->getBoardSizeX() - 2;
+    if(playerPosList[0].x < 1){
+        playerPosList[0].x = mainGameMechsRef->getBoardSizeX() - 2;
     }
 }
 
