@@ -16,7 +16,7 @@ void Food::generateFood(objPos blockOff){
         y = (rand()%(15-2)) + 1;
     } 
     
-    foodPos.setObjPos(x, y, '+');
+    foodPos.setObjPos(x, y, 'o');
 
     
 }

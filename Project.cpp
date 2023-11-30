@@ -4,6 +4,7 @@
 #include "GameMechs.h"
 #include "Player.h"
 #include "Food.h"
+#include "objPosArrayList.h"
 
 
 using namespace std;
@@ -46,10 +47,12 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-    
+    objPos tempPos(-1, -1, 'o');
     game = new GameMechs();
     myPlayer = new Player(game);
     myFood = new Food();
+
+    myFood->generateFood(tempPos);
 
 }
 
@@ -65,42 +68,59 @@ void RunLogic(void)
     myPlayer->updatePlayerDir();
     myPlayer->movePlayer();
     game->clearInput();
+    
 }
 
 void DrawScreen(void)
 {
     MacUILib_clearScreen();    
-    objPos tempPos;
+    bool drawn;
+
+    objPosArrayList* playerBody = myPlayer->getPlayerPos();
     objPos tempFood;
     string toPrint = "";
+    objPos tempBody;
 
-    myFood->generateFood(tempPos);//temp
-
-    myPlayer->getPlayerPos(tempPos);
     myFood->getFoodPos(tempFood);
     
 
-    MacUILib_printf("BoardSize: %d, %d,\nPlayer Pos: <%d, %d> + %c\n", 
-    game->getBoardSizeX(), game->getBoardSizeY(), 
-    tempFood.x, tempFood.y, tempFood.symbol);
+    //MacUILib_printf("BoardSize: %d, %d,\nPlayer Pos: <%d, %d> + %c\n", 
+    //game->getBoardSizeX(), game->getBoardSizeY(), 
+    //tempFood.x, tempFood.y, tempFood.symbol);
     
     for(int j = 0; j < game->getBoardSizeY(); j++){
         for(int i = 0; i < game->getBoardSizeX(); i++){
+            drawn = false;
 
-            if(j == 0 || j == game->getBoardSizeY()-1 || i == 0 || i == game->getBoardSizeX()-1)
+            for(int k = 0; k < playerBody->getSize(); k++){
+                playerBody->getElement(tempBody, k);
+                if(tempBody.x == i && tempBody.y == j){
+                    MacUILib_printf("%c", tempBody.symbol);
+                    drawn = true;
+                    break;
+                }
+            }
+            if(drawn) continue;
+
+            if(j == 0 || j == game->getBoardSizeY()-1 || i == 0 || i == game->getBoardSizeX()-1){
                 MacUILib_printf("#");
+            }
+            
+            //else if(i == tempBody.x && j == tempBody.y)
+                //MacUILib_printf("%c", tempBody.symbol);
 
-            else if(i == tempPos.x && j == tempPos.y)
-                MacUILib_printf("%c", tempPos.symbol);
-
-            else if(i == tempFood.x && j == tempFood.y)
+            else if(i == tempFood.x && j == tempFood.y){
                 MacUILib_printf("%c", tempFood.symbol);
 
-            else MacUILib_printf(" ");
+            }else {
+                MacUILib_printf(" ");
+            }
         }
-         MacUILib_printf("\n");
-    }
+        MacUILib_printf("\n");
 
+    //MacUILib_printf("Score: %d\n", game->getScore());
+    //MacUILib_printf("Food Pos: <%d, %d>\n", tempFood.x, tempFood.y);    
+    }
 }
 
 void LoopDelay(void)
