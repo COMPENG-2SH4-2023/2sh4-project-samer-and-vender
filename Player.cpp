@@ -8,9 +8,6 @@ Player::Player(GameMechs* thisGMRef)
 
     playerPos.setObjPos(mainGameMechsRef->getBoardSizeX() / 2, mainGameMechsRef->getBoardSizeY() / 2, '*');
 
-    
-
-    // more actions to be included
 }
 
 
