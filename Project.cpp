@@ -47,12 +47,11 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-    objPos tempPos(-1, -1, 'o');
     game = new GameMechs();
     myPlayer = new Player(game);
     myFood = new Food();
 
-    myFood->generateFood(tempPos);
+    myFood->generateFood(myPlayer->getPlayerPos());
 
 }
 
@@ -66,7 +65,7 @@ void GetInput(void)
 void RunLogic(void)
 {
     myPlayer->updatePlayerDir();
-    myPlayer->movePlayer();
+    myPlayer->movePlayer(myFood);
     game->clearInput();
     
 }

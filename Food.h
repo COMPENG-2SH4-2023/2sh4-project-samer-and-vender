@@ -2,13 +2,14 @@
 #define FOOD_H
 
 #include "objPos.h"
+#include "objPosArrayList.h"
 
 class Food
 {
     public:
         Food();
 
-        void generateFood(objPos blockOff);
+        void generateFood(objPosArrayList* blockOff);
         void getFoodPos(objPos &returnPos);
 
     private:
