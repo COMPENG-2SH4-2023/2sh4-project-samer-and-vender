@@ -22,14 +22,16 @@ Player::~Player()
 
 bool Player::checkSelfCollision(){
     if (playerPosList->getSize() <= 1) return false;
+
     objPos currentHead;
     objPos currentPos;
+
     playerPosList->getHeadElement(currentHead);
+
     for(int i = 3; i < playerPosList->getSize(); i++){
         playerPosList->getElement(currentPos, i);
-        if(currentHead.x == currentPos.x && currentHead.y == currentPos.y){
+        if(currentHead.x == currentPos.x && currentHead.y == currentPos.y)
             return true;
-        }
     }
     return false;
 

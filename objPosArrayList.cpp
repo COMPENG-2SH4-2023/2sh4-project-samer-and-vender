@@ -23,7 +23,7 @@ int objPosArrayList::getSize()
 void objPosArrayList::insertHead(objPos thisPos)
 {
     if(listSize == arrayCapacity){
-
+        return;
     }
     for(int i = listSize; i > 0; i--){
         aList[i].setObjPos(aList[i-1]);
