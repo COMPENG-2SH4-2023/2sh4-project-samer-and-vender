@@ -10,12 +10,12 @@ Food::Food(){
 
     objPos tempFood;
 
-    //shrink board size
+    //increase board size
     tempFood.setObjPos(0, 0, '!');
     powerFood->insertTail(tempFood);
 
-    //size - 3
-    tempFood.setObjPos(0, 0, '/');
+    //increase size by 5
+    tempFood.setObjPos(0, 0, '+');
     powerFood->insertTail(tempFood);
 
     //increase score by 5
