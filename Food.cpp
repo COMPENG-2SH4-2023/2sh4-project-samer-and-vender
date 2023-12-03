@@ -40,7 +40,6 @@ void Food::generateFood(objPosArrayList* blockOff, GameMechs* gameRef){
     bool gen;
 
     objPos tempPos;
-    objPos compPos;
 
     clearFood();
 
