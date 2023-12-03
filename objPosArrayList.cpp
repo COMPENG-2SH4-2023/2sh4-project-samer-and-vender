@@ -54,7 +54,7 @@ void objPosArrayList::removeHead()
 
 void objPosArrayList::removeTail()
 {
-    listSize--;
+    if (listSize > 0) listSize--;
 }
 
 void objPosArrayList::getHeadElement(objPos &returnPos)

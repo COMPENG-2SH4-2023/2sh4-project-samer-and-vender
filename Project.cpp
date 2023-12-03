@@ -51,7 +51,7 @@ void Initialize(void)
     myPlayer = new Player(game);
     myFood = new Food();
 
-    myFood->generateFood(myPlayer->getPlayerPos());
+    myFood->generateFood(myPlayer->getPlayerPos(), game);
 
 }
 
@@ -78,11 +78,10 @@ void DrawScreen(void)
     bool drawn;
 
     objPosArrayList* playerBody = myPlayer->getPlayerPos();
-    objPos tempFood;
-    string toPrint = "";
+    objPosArrayList* foodList = myFood->getFoodList();
+    
     objPos tempBody;
-
-    myFood->getFoodPos(tempFood);
+    objPos tempFood;
     
     //MacUILib_printf("BoardSize: %d, %d,\nPlayer Pos: <%d, %d> + %c\n", 
     //game->getBoardSizeX(), game->getBoardSizeY(), 
@@ -91,7 +90,6 @@ void DrawScreen(void)
     for(int j = 0; j < game->getBoardSizeY(); j++){
         for(int i = 0; i < game->getBoardSizeX(); i++){
             drawn = false;
-
             for(int k = 0; k < playerBody->getSize(); k++){
                 playerBody->getElement(tempBody, k);
                 if(tempBody.x == i && tempBody.y == j){
@@ -101,14 +99,19 @@ void DrawScreen(void)
                 }
             }
             if(drawn) continue;
+            for(int k = 0; k < foodList->getSize(); k++){
+                foodList->getElement(tempFood, k);
+                if(tempFood.x == i && tempFood.y == j){
+                    MacUILib_printf("%c", tempFood.symbol);
+                    drawn = true;
+                    break;
+                }
+            }
+            if(drawn) continue;
 
             if(j == 0 || j == game->getBoardSizeY()-1 || i == 0 || i == game->getBoardSizeX()-1){
                 MacUILib_printf("#");
             }
-            
-            //else if(i == tempBody.x && j == tempBody.y)
-                //MacUILib_printf("%c", tempBody.symbol);
-
             else if(i == tempFood.x && j == tempFood.y){
                 MacUILib_printf("%c", tempFood.symbol);
 
@@ -117,10 +120,11 @@ void DrawScreen(void)
             }
         }
         MacUILib_printf("\n");
-
-    //MacUILib_printf("Score: %d\n", game->getScore());
-    //MacUILib_printf("Food Pos: <%d, %d>\n", tempFood.x, tempFood.y); 
     }
+
+    MacUILib_printf("Score: %d\n", game->getScore());
+    //MacUILib_printf("Player Size: %d\n", playerBody->getSize());
+
 }
 
 void LoopDelay(void)

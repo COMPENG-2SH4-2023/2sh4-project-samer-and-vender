@@ -50,6 +50,11 @@ int GameMechs::getBoardSizeY()
     return boardSizeY;
 }
 
+void GameMechs::decreaseBoardSize(){
+    boardSizeX -= 2;
+    boardSizeY -= 1;
+}
+
 void GameMechs::setExitTrue()
 {
     exitFlag = true;

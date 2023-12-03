@@ -25,7 +25,7 @@ class Player
         void movePlayer(Food* myFood);
         
         bool checkSelfCollision();
-        bool checkFoodConsumption(objPos tempFood, objPos currentHead);
+        bool checkFoodConsumption(Food* myFood, objPos currentHead);
         void increasePlayerLength(objPos currentHead);
 
     private:
