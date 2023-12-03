@@ -23,7 +23,10 @@ class Player
         objPosArrayList* getPlayerPos(); // Upgrade this in iteration 3.
         void updatePlayerDir();
         void movePlayer(Food* myFood);
+        
         bool checkSelfCollision();
+        bool checkFoodConsumption(objPos tempFood, objPos currentHead);
+        void increasePlayerLength(objPos currentHead);
 
     private:
         objPosArrayList* playerPosList;   // Upgrade this in iteration 3.       

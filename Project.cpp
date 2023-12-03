@@ -75,11 +75,6 @@ void DrawScreen(void)
 {
     MacUILib_clearScreen();  
 
-    if(game->getLoseFlagStatus()){
-        MacUILib_printf("You Lost :(");
-        game->setExitTrue();
-    }
-
     bool drawn;
 
     objPosArrayList* playerBody = myPlayer->getPlayerPos();
@@ -89,7 +84,6 @@ void DrawScreen(void)
 
     myFood->getFoodPos(tempFood);
     
-    MacUILib_printf("%d", playerBody->getSize());
     //MacUILib_printf("BoardSize: %d, %d,\nPlayer Pos: <%d, %d> + %c\n", 
     //game->getBoardSizeX(), game->getBoardSizeY(), 
     //tempFood.x, tempFood.y, tempFood.symbol);
@@ -137,7 +131,9 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
-    MacUILib_clearScreen();    
+    MacUILib_clearScreen(); 
+    if(game->getLoseFlagStatus())
+        MacUILib_printf("\n\nGame Over!\nYou had %d points.\n\n", game->getScore());   
     delete game;
     delete myPlayer;
     delete myFood;

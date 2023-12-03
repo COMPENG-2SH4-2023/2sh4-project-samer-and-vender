@@ -20,24 +20,6 @@ Player::~Player()
     delete playerPosList;
 }
 
-bool Player::checkSelfCollision(){
-    if (playerPosList->getSize() <= 1) return false;
-
-    objPos currentHead;
-    objPos currentPos;
-
-    playerPosList->getHeadElement(currentHead);
-
-    for(int i = 3; i < playerPosList->getSize(); i++){
-        playerPosList->getElement(currentPos, i);
-        if(currentHead.x == currentPos.x && currentHead.y == currentPos.y)
-            return true;
-    }
-    return false;
-
-}
-
-
 objPosArrayList* Player::getPlayerPos()
 {
     return playerPosList;
@@ -123,9 +105,9 @@ void Player::movePlayer(Food* myFood)
             break;
     }
 
-    playerPosList->insertHead(currentHead);
+    increasePlayerLength(currentHead);
     
-    if(tempFood.x == currentHead.x && tempFood.y == currentHead.y){
+    if(checkFoodConsumption(tempFood, currentHead)){
         mainGameMechsRef->incrementScore();
         myFood->generateFood(playerPosList);
     }
@@ -133,7 +115,34 @@ void Player::movePlayer(Food* myFood)
 
     if(checkSelfCollision()){
         mainGameMechsRef->setLoseFlag();
+        mainGameMechsRef->setExitTrue();
     }
     
 }
 
+bool Player::checkFoodConsumption(objPos tempFood, objPos currentHead){
+    if(tempFood.x == currentHead.x && tempFood.y == currentHead.y)
+        return true;
+    return false;
+}
+
+void Player::increasePlayerLength(objPos currentHead){
+    playerPosList->insertHead(currentHead);
+}
+
+bool Player::checkSelfCollision(){
+    if (playerPosList->getSize() <= 1) return false;
+
+    objPos currentHead;
+    objPos currentPos;
+
+    playerPosList->getHeadElement(currentHead);
+
+    for(int i = 3; i < playerPosList->getSize(); i++){
+        playerPosList->getElement(currentPos, i);
+        if(currentHead.x == currentPos.x && currentHead.y == currentPos.y)
+            return true;
+    }
+    return false;
+
+}

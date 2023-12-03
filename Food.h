@@ -8,6 +8,7 @@ class Food
 {
     public:
         Food();
+        ~Food();
 
         void generateFood(objPosArrayList* blockOff);
         void getFoodPos(objPos &returnPos);
